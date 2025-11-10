@@ -10,11 +10,20 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
+      title: "CV Jesus",
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
         ),
-      ),
+      home: const CVScreen(),
     );
   }
+}
+
+class CVScreen extends StatefulWidget{
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    throw UnimplementedError();
+  }
+
 }
