@@ -33,6 +33,23 @@ class _PantallaCVState extends State<PantallaCV>{
   final List<String> idiomas = ["Español", "English", "Galego"];
   bool mostrarMasInfo = false;
 
+  //Mapas con los textos traducidos
+  final Map<String, Map <String, String>>sobreMiTextos = {
+
+    "Español" :  {
+      "corto" : "Soy estudiante de Desarrollo de Aplicaciones Multiplataforma, con pasión por el skateboard. Mi objetivo es ser desarrollador backend y especializrme en ciberseguridad. ",
+      "largo" : "Soy estudiante de Desarrollo de Aplicaciones Multiplataforma,con una gran pasión por el skateboarding. Actualmente, he convertido mi hobby en mi trabajo, impartiendo clases deskateboard a niños y adultos. Esta experiencia me ha permitido desarrollar habilidades clave como la comunicación, la paciencia y el liderazgo, que considero muy útiles en el ámbito tecnológico. Mi objetivo es convertirme en desarrollador backend y hacer una especialización en ciberseguridad, donde pueda aplicar mis conocimientos y seguir aprendiendo para crecer y contribuir en el mundo de la tecnología.",
+    },
+    "English" :{
+      "corto" : "I' m a Multiplatform Application Development student, passionate about skateboarding. My goal is to become a backend developer specializing in cybersecurity. ",
+      "largo" : "",
+    },
+    "Galego" : {
+      "corto" : "Son estudante de DAM, apaixonado polo skateboard. O meu obxectivo é ser desenvolvedor backend especializado en ciberseguridade.",
+      "largo" : "",
+    },
+  };
+
   @override
   Widget build(BuildContext context){
     //Detectar si es un movil o un ordenador para el responsive
@@ -87,7 +104,7 @@ class _PantallaCVState extends State<PantallaCV>{
             //Cabecera con foto y datos personales
             _construirCabecera(esMobil),
             //Contenido del CV
-            _construirContenido(),
+            _cosntruirContenido(),
             const SizedBox(height: 80), //Espacio para el FAB
           ],
         ),
@@ -97,7 +114,7 @@ class _PantallaCVState extends State<PantallaCV>{
         onPressed: (){
           _mostrarDialogoContacto();
         },
-        icon: const Icon(Icons.contact_email),
+        icon: const Icon(Icons.contact_mail),
         label: const Text("Contacto"),
         tooltip: "Ver información de contacto completa",
       ),
@@ -277,6 +294,8 @@ class _PantallaCVState extends State<PantallaCV>{
   //Seccion Sobre Mi(Container decoration(requisito 4))
 
   Widget _construirSobreMi(){
+    final textosIdioma = sobreMiTextos[idiomaSeleccionado] ?? sobreMiTextos["Español"]!;
+    final textoMostrar = mostrarMasInfo ? textosIdioma["largo"] ! : textosIdioma["corto"]!;
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.all(20),
@@ -292,14 +311,18 @@ class _PantallaCVState extends State<PantallaCV>{
           ),
         ],
       ),
-      child: Column(
+      child: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Colum(
+        child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Row(
+            children: [
           Icon(Icons.person, color: Colors.blue, size: 24),
           SizedBox(width: 8),
-          Text("Sobre Mí",
+          Text(
+            idiomaSeleccionado == "English" ? "About Me"
+            : idiomaSeleccionado == "Galego" ? "Sobre min" : "Sobre Mí",
           style:  TextStyle(
             fontSize: 22, 
             fontWeight: FontWeight.bold,
@@ -311,27 +334,14 @@ class _PantallaCVState extends State<PantallaCV>{
       const Divider(thickness: 2),
       const SizedBox(height: 8),
       Text(
-        mostrarMasInfo
-        ? "Soy estudiante de Desarrollo de Aplicaciones Multiplataforma,"
-        "con una gran pasion por el skateboarding. Actualmente, he"
-        "convertido mi hobby en mi trabajo, impartiendo clases de "
-        "skateboard a niños y adultos. Esta experiencia me ha permitido "
-        "desarrollar habilidades clave como la comunicación, la "
-        "paciencia y el liderazgo, que considero muy útiles en el ámbito "
-        "tecnológico. Mi objetivo es convertirme en desarrollador "
-        "backend y hacer una especialización en ciberseguridad, donde "
-        "pueda aplicar mis conocimientos y seguir aprendiendo para "
-        "crecer y contribuir en el mundo de la tecnología. "
-        : "Soy estudiante de Desarrollo de Aplicaciones Multiplataforma, "
-        "con pasión por el skateboard. Mi objetivo es ser desarrollador "
-        "backend especilizado en ciberseguridad.",
+        textoMostrar,
         style: const TextStyle(fontSize: 14, height: 1.5),
       ),
       ],
-      ),
     ),
-    );
-  }
+  ),
+  );
+ }
   // Seccion idiomas (Padding explicito reequisito 5)
   Widget _construirIdiomas(){
     return Padding(padding: const EdgeInsets.only(bottom: 16),
@@ -389,7 +399,7 @@ class _PantallaCVState extends State<PantallaCV>{
         "titulo": "Instructor de Skateboarding",
         "lugar": "NothSide Skatepark",
         "periodo": "2024-Actualidad",
-        "descripción": "Clases particulares y grupales par niños y adultos."
+        "descripcion": "Clases particulares y grupales par niños y adultos."
         "Planificación de sesiones adaptadas a diferentes niveles",
       },
     ];
@@ -400,7 +410,6 @@ class _PantallaCVState extends State<PantallaCV>{
         ListView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          itemCount: experiencias.length,
           itemCount: experiencias.length,
           itemBuilder: (context, index){
             final exp = experiencias[index];
@@ -440,7 +449,7 @@ class _PantallaCVState extends State<PantallaCV>{
           "titulo": "Técnico Superior en DAM",
           "lugar": "IES Fernado Wirtz",
           "periodo": "Sep 2023 - Actualidad",
-          "Descripción": "Desarrollo de Aplicaciones Multiplataforma",
+          "descripcion": "Desarrollo de Aplicaciones Multiplataforma",
         },
         {
           "titulo": "Bachillerato",
@@ -457,7 +466,6 @@ class _PantallaCVState extends State<PantallaCV>{
         ListView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          itemCount: formaciones.length,
           itemCount: formaciones.length,
           itemBuilder: (context, index){
             final exp = formaciones[index];
@@ -523,7 +531,7 @@ class _PantallaCVState extends State<PantallaCV>{
             Wrap(
               spacing: 8,
               runSpacing: 8,
-              children: herramientas.map((herramientas){
+              children: herramientas.map((herramienta){
                 return ChipHabilidad(habilidad: herramienta, color: Colors.blue);
               }).toList(),
             ),
@@ -596,11 +604,11 @@ class _PantallaCVState extends State<PantallaCV>{
     );
   }
 
-  // Sección Hobbies
+  //Seccion Hobbies
   Widget _construirHobbies() {
     return SeccionCV(
       titulo: "Hobbies e Intereses",
-      icono: Icons.sports_skateboarding,
+      icono: Icons.sports,
       contenido: [
         Wrap(
           spacing: 8,
@@ -616,7 +624,7 @@ class _PantallaCVState extends State<PantallaCV>{
     );
   }
 
-  // Diálogo de contacto completo
+  //Dialogo de contacto completo
   void _mostrarDialogoContacto() {
     showDialog(
       context: context,
@@ -724,7 +732,7 @@ class _PantallaCVState extends State<PantallaCV>{
   }
 }
 
-// Widget personalizado para items de experiencia/formación (requisito 9)
+//Widget personalizado para items de experiencia/formación (requisito 9)
 class ItemLista extends StatelessWidget {
   final String titulo;
   final String subtitulo;
@@ -775,7 +783,7 @@ class ItemLista extends StatelessWidget {
 }
 
 
-// Widget personalizado para chips de habilidades (requisito 9)
+//Widget personalizado para chips de habilidades (requisito 9)
 class ChipHabilidad extends StatelessWidget {
   final String habilidad;
   final Color? color;
@@ -800,11 +808,48 @@ class ChipHabilidad extends StatelessWidget {
       child: Text(
         habilidad,
         style: TextStyle(
-          color: colorFinal.shade700,
+          color: (colorFinal is MaterialColor) ? colorFinal.shade700 : colorFinal,
           fontWeight: FontWeight.w600,
           fontSize: 13,
         ),
       ),
     );
+  }
+}
+
+//Widget contenedeor para  secciones (placehodler)
+
+class SeccionCV extends StatelessWidget{
+  final String titulo;
+  final IconData icono;
+  final List<Widget> contenido;
+
+  const SeccionCV({
+    Key? key,
+    required this.titulo,
+    required this.icono,
+    required this.contenido,
+  }) : super (key : key);
+
+  @override
+
+  Widget build(BuildContext context){
+
+      return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0) ,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(children: [
+              Icon(icono, color: Colors.blue),
+              const SizedBox(width: 8),
+              Text(titulo, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            ],
+            ),
+            const SizedBox(height: 6),
+            ...contenido,
+          ],
+          )
+          );
   }
 }
