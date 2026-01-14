@@ -1,3 +1,13 @@
+import java.util.Properties
+import java.io.FileInputStream
+
+//Cargar propiedades del keystore
+val keystorePropertiesFile = rootProject.file("key.properties")
+val keystoreProperties = Properties()
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+}
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
@@ -6,8 +16,8 @@ plugins {
 }
 
 android {
-    namespace = "com.example.t3_2"
-    compileSdk = flutter.compileSdkVersion
+    namespace = "com.jrv.cvjesusregueira"  //Identificador único
+    compileSdk = 34  //Versión fija
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
@@ -19,22 +29,30 @@ android {
         jvmTarget = JavaVersion.VERSION_11.toString()
     }
 
+    //Config de firma
+    signingConfigs {
+        create("release") {
+            keyAlias = keystoreProperties["keyAlias"] as String?
+            keyPassword = keystoreProperties["keyPassword"] as String?
+            storeFile = keystoreProperties["storeFile"]?.let { file(it) }
+            storePassword = keystoreProperties["storePassword"] as String?
+        }
+    }
+
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "com.example.t3_2"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = flutter.minSdkVersion
-        targetSdk = flutter.targetSdkVersion
-        versionCode = flutter.versionCode
-        versionName = flutter.versionName
+        applicationId = "com.jrv.cvjesusregueira"  //ID único
+        minSdk = flutter.minSdkVersion  // ← CAMBIADO: versión fija
+        targetSdk = 34  // ← CAMBIADO: versión fija
+        versionCode = 1  // ← CAMBIADO: número de versión
+        versionName = "1.0.0"  // ← CAMBIADO: nombre de versión
     }
 
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig = signingConfigs.getByName("debug")
+            //Firma con keystore de producción
+            signingConfig = signingConfigs.getByName("release")
+            isMinifyEnabled = false
+            isShrinkResources = false
         }
     }
 }
