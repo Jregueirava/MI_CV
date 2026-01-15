@@ -560,6 +560,8 @@ class _PantallaCVState extends State<PantallaCV> {
       "Git",
       "Docker",
       "Flutter",
+      "Spring Boot",
+      "MongoDB"
     ];
     return SeccionCV(
       titulo: "IDEs, Gestión de Datos y Tecnologías",
