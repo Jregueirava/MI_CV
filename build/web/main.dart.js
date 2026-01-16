@@ -66739,7 +66739,7 @@ Uj(){var s=t.Sv
 s=A.X(new A.ag(A.c(["HTML","XML","CSS","Java","SQL","C#","Kotlin","Dart"],t.s),new A.a8b(),s),s.h("aw.E"))
 return new A.fX("Lenguajes de Programaci\xf3n",B.Cs,A.c([A.H7(s,8,8)],t.p),null)},
 Ui(){var s=t.Sv
-s=A.X(new A.ag(A.c(["NeatBeans","Visual Studio","Android Studio","Unity","JeatBrains","WorkBench","Base X","Git","Docker","Flutter"],t.s),new A.a8a(),s),s.h("aw.E"))
+s=A.X(new A.ag(A.c(["NeatBeans","Visual Studio","Android Studio","Unity","JeatBrains","WorkBench","Base X","Git","Docker","Flutter","Spring Boot","MongoDB"],t.s),new A.a8a(),s),s.h("aw.E"))
 return new A.fX("IDEs, Gesti\xf3n de Datos y Tecnolog\xedas",B.Co,A.c([A.H7(s,8,8)],t.p),null)},
 Uh(){var s=t.N
 return new A.fX("Habilidades",B.Cx,A.c([A.ade(new A.a89(this,A.c([A.ap(["titulo","Resoluci\xf3n de problemas","descripcion","Descomponer problemas complejos en tareas m\xe1s peque\xf1as."],s,s),A.ap(["titulo","Comunicaci\xf3n","descripcion","Guiar y motivar, desarrollando comunicaci\xf3n clara y efectiva."],s,s),A.ap(["titulo","Planificaci\xf3n y organizaci\xf3n","descripcion","Creaci\xf3n de programas estructurados."],s,s),A.ap(["titulo","Adaptabilidad","descripcion","Ajuste de t\xe9cnicas seg\xfan diferentes niveles."],s,s)],t.m0)),4,B.ik,!0)],t.p),null)},
