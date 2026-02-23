@@ -212,7 +212,7 @@ class _PantallaCVState extends State<PantallaCV> {
           ),
           child: ClipOval(
             child: Image.asset(
-              "assets/img/foto_Perfil.jpg",
+              "assets/img/fotoPerfil.jpg",
               fit: BoxFit.cover,
               errorBuilder: (context, error, stackTrace) {
                 return Container(
